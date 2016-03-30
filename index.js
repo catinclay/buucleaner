@@ -110,6 +110,7 @@ function mouseDownListener(evt){
 
 function touchDownListener(evt){
 	score++;
+	scoreLabel.innerHTML = score;
 }
 
 function mouseMoveListener(evt){
