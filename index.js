@@ -109,7 +109,7 @@ function mouseDownListener(evt){
 }
 
 function touchDownListener(evt){
-	alert("touch!!");
+	score++;
 }
 
 function mouseMoveListener(evt){
