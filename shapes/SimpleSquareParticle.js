@@ -16,7 +16,7 @@ function SimpleSquareParticle(posX, posY, type) {
 		var tempColor = "rgba(" + styles[type][0] + "," + styles[type][1] + "," + styles[type][2] + "," + styles[type][3] + ")";
 		// tempShape.color = tempColor;
 		this.color = tempColor;
-		this.radius = 30;
+		this.radius = 45;
 		this.x = posX*(this.radius*2+4)+this.radius+5
 		this.y = (posY-7)*(this.radius*2+4)+this.radius+5;
 		this.moveToX = posX*(this.radius*2+4)+this.radius+5;

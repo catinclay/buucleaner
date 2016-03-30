@@ -73,9 +73,9 @@ function drawScreen() {
 	}
 	context.fillRect(0,0,theCanvas.width,theCanvas.height);
 	context.fillStyle = "#FF0000";
-	context.fillRect(0,480,theCanvas.width*health/100,30);
+	context.fillRect(0,theCanvas.height*0.75,theCanvas.width*health/100,theCanvas.height*0.06);
 	context.fillStyle = "#0000FF";
-	context.fillRect(0,540,theCanvas.width*clock/countDown,30);
+	context.fillRect(0,theCanvas.height*0.85,theCanvas.width*clock/countDown, theCanvas.height*0.06);
 
 	drawShapes();		
 }
