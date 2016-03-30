@@ -18,12 +18,12 @@ var scoreCount = 4;
 var movingShapes = [];
 var hasMousedoneHandler;
 var countDown = 3000;
-var clock = 0;
+var clock = -350;
 var health = 100;
 var damage = 15;
 var isDamaged = false;
 var score = 0;
-var speedUpRatio = 0.90;
+var speedUpRatio = 0.96;
 
 function init(){
 	theCanvas.addEventListener('mousedown', mouseDownListener, false);
@@ -36,11 +36,12 @@ function init(){
 	health = 100;
 	score = 0;
 	speedUpRatio = 0.90;
+	countDown = 3000;
+	clock = -300;
 	scoreLabel.innerHTML = score;
 	theCanvas.style.display = "block";
 	restartButton.style.display = "none";
 	gameOverLabel.style.display = "none";
-
 }
 
 function makeShapes() {
@@ -79,7 +80,7 @@ function drawShapes() {
 function drawScreen() {
 	//bg
 	if(isDamaged){
-		context.fillStyle = "#FF0000";
+		context.fillStyle = "rgba(255,0,0,0.5)";
 		isDamaged = false;
 	}else{
 		context.fillStyle = "#FFFFFF";
@@ -109,7 +110,7 @@ function mouseDownListener(evt){
 			}
 		}
 	}
-	console.log(grabIndexI+", "+grabIndexJ);
+	// console.log(grabIndexI+", "+grabIndexJ);
 	
 	window.addEventListener('mousemove', mouseMoveListener, false);
 	window.addEventListener('touchmove', touchMoveListener, false);
@@ -139,7 +140,7 @@ function touchDownListener(evt){
 			}
 		}
 	}
-	console.log(grabIndexI+", "+grabIndexJ);
+	// console.log(grabIndexI+", "+grabIndexJ);
 	
 	window.addEventListener('mousemove', mouseMoveListener, false);
 	window.addEventListener('touchmove', touchMoveListener, false);
@@ -178,7 +179,7 @@ function mouseMoveListener(evt){
 					// grabIndexJPos = shapes[grabIndexI][grabIndexJ].y;
 					// destinationIndexIPos = shapes[destinationIndexI][destinationIndexJ].x;
 					// destinationIndexJPos = shapes[destinationIndexI][destinationIndexJ].y;
-					console.log(destinationIndexI+", "+destinationIndexJ);
+					// console.log(destinationIndexI+", "+destinationIndexJ);
 					window.removeEventListener('mousemove', mouseMoveListener, false);
 					window.removeEventListener('touchmove', touchMoveListener, false);
 					window.removeEventListener('mouseup', mouseUpListener, false);
@@ -219,7 +220,7 @@ function touchMoveListener(evt){
 
 					movingShapes.push(shapes[grabIndexI][grabIndexJ]);
 					movingShapes.push(shapes[destinationIndexI][destinationIndexJ]);
-					console.log(destinationIndexI+", "+destinationIndexJ);
+					// console.log(destinationIndexI+", "+destinationIndexJ);
 					window.removeEventListener('mousemove', mouseMoveListener, false);
 					window.removeEventListener('touchmove', touchMoveListener, false);
 					window.removeEventListener('mouseup', mouseUpListener, false);
@@ -395,8 +396,9 @@ function onTimerTick(){
 	}
 	clock += 30;
 	if(clock >= countDown){
+		console.log(countDown);
 		clearShapes();
-		clock = 0;
+		clock = -350;
 	}
 	drawScreen();
 	checkDead();
@@ -413,7 +415,7 @@ function clearShapes(){
 		damage*=1.1;
 	}else{
 		countDown *= speedUpRatio;
-		speedUpRatio = (speedUpRatio+1)/2;
+		// speedUpRatio = (speedUpRatio+1)/2;
 		health += cleanCount;
 		score += cleanCount;
 		scoreLabel.innerHTML = score;
