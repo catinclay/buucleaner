@@ -15,6 +15,7 @@ function SimpleSquareParticle(posX, posY, type) {
 		this.type = type;
 		var tempColor = "rgba(" + styles[type][0] + "," + styles[type][1] + "," + styles[type][2] + "," + styles[type][3] + ")";
 		// tempShape.color = tempColor;
+		this.a = styles[type][3];
 		this.color = tempColor;
 		this.radius = 45;
 		this.x = posX*(this.radius*2+4)+this.radius+5
@@ -46,7 +47,22 @@ SimpleSquareParticle.prototype.moveTo = function(posX,posY){
 
 SimpleSquareParticle.prototype.explode = function(){
 	// this.type = 5;
-	var tempColor = "rgba(" + styles[this.type][0] + "," + styles[this.type][1] + "," + styles[this.type][2] + "," + 0 + ")";
-	this.color = tempColor;
+	// var tempColor = "rgba(" + styles[this.type][0] + "," + styles[this.type][1] + "," + styles[this.type][2] + "," + 0 + ")";
+	// this.color = tempColor;
 	this.isExploding = true;
+}
+
+SimpleSquareParticle.prototype.decreaseRadius = function(explodeEase){
+	this.radius *= explodeEase;
+	this.a *= explodeEase;
+	var tempColor = "rgba(" + styles[this.type][0] + "," + styles[this.type][1] + "," + styles[this.type][2] + "," + this.a + ")";
+	this.color = tempColor;
+}
+
+SimpleSquareParticle.prototype.setRadius = function(newRadius){
+	this.radius = newRadius;
+}
+
+SimpleSquareParticle.prototype.getRadius = function(){
+	return this.radius;
 }

@@ -8,11 +8,13 @@ var gridHeight = 6;
 var shapes = [];
 var countBoard = [];
 var dropBoard = [];
+var explodingShapes = [];
 var grabIndexI;
 var grabIndexJ;
 var destinationIndexI;
 var timer;
 var easeAmount = 0.55;
+var explodeEase = 0.9;
 var isDragging = false;
 var scoreCount = 4;
 var movingShapes = [];
@@ -30,6 +32,7 @@ function init(){
 	theCanvas.addEventListener('mousedown', mouseDownListener, false);
 	theCanvas.addEventListener('touchstart', touchDownListener, false);
 	hasMousedoneHandler = true;
+	explodingShapes = [];
 	makeShapes();
 	drawShapes();
 	timer = setInterval(onTimerTick, 1000/30);
@@ -38,7 +41,7 @@ function init(){
 	score = 0;
 	speedUpRatio = 0.90;
 	countDown = 3000;
-	clock = -350;
+	clock = clockOrigin;
 	scoreLabel.innerHTML = score;
 	theCanvas.style.display = "block";
 	restartButton.style.display = "none";
@@ -76,6 +79,9 @@ function drawShapes() {
 		for(j = 0; j < shapes[i].length; ++j){
 			shapes[i][j].drawToContext(context);
 		}
+	}
+	for(i = 0; i < explodingShapes.length; ++i){
+		explodingShapes[i].drawToContext(context);
 	}
 }
 function drawScreen() {
@@ -289,6 +295,7 @@ function cleanBoard(){
 			if(countBoard[i][j] >= scoreCount){
 				++hasClean;
 				shapes[i][j].explode();
+				explodingShapes.push(shapes[i][j]);
 				shapes[i][j] = undefined;
 				++dropCount;
 			}
@@ -390,16 +397,29 @@ function onTimerTick(){
 	for(i = stopingShapes.length -1; i>=0; --i){
 		movingShapes.splice(stopingShapes[i],1);
 	}
+	stopingShapes = [];
+	for(i = explodingShapes.length-1; i>=0; --i){
+		explodingShapes[i].decreaseRadius(explodeEase);
+		if(explodingShapes[i].getRadius()<5){
+			stopingShapes.push(i);
+		}
+	}
+	for(i = stopingShapes.length -1; i>=0; --i){
+		explodingShapes.splice(stopingShapes[i],1);
+	}
+
 	if(movingShapes.length == 0 && !hasMousedoneHandler){
 		hasMousedoneHandler = true;
 		theCanvas.addEventListener('mousedown', mouseDownListener, false);
 		theCanvas.addEventListener('touchstart', touchDownListener, false);
 	}
+
+	
 	clock += 30;
 	if(clock >= countDown){
 		console.log(countDown);
 		clearShapes();
-		clock = -350;
+		clock = clockOrigin;
 	}
 	drawScreen();
 	checkDead();
@@ -416,7 +436,6 @@ function clearShapes(){
 		damage*=1.1;
 	}else{
 		countDown *= speedUpRatio;
-		// speedUpRatio = (speedUpRatio+1)/2;
 		health += cleanCount;
 		score += cleanCount;
 		scoreLabel.innerHTML = score;
