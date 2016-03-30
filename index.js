@@ -1,6 +1,7 @@
 var theCanvas = document.getElementById("mainCanvas");
 var gameOverLabel = document.getElementById("gameOverLabel");
 var scoreLabel = document.getElementById("scoreLabel");
+var restartButton = document.getElementById("restartButton");
 var context = theCanvas.getContext("2d");
 var gridWidth = 8;
 var gridHeight = 6;
@@ -31,9 +32,20 @@ function init(){
 	makeShapes();
 	drawShapes();
 	timer = setInterval(onTimerTick, 1000/30);
+	damage = 15;
+	health = 100;
+	score = 0;
+	scoreLabel.innerHTML = score;
+	theCanvas.style.display = "block";
+	restartButton.style.display = "none";
+	gameOverLabel.style.display = "none";
+
 }
 
 function makeShapes() {
+	shapes = [];
+	countBoard = [];
+	dropBoard = [];
 	var i;
 	var j;
 	for (i = 0; i < gridWidth; ++i) {
@@ -413,6 +425,7 @@ function checkDead(){
 	if(health <= 0){
 		theCanvas.style.display = "none";
 		gameOverLabel.style.display = "block";
+		restartButton.style.display = "block";
 		clearInterval(timer);
 	}
 }
