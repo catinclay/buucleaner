@@ -11,7 +11,7 @@ var grabIndexI;
 var grabIndexJ;
 var destinationIndexI;
 var timer;
-var easeAmount = 0.45;
+var easeAmount = 0.55;
 var isDragging = false;
 var scoreCount = 4;
 var movingShapes = [];
@@ -366,7 +366,7 @@ function onTimerTick(){
 	for(i = 0; i < movingShapes.length; ++i){
 		movingShapes[i].x = movingShapes[i].x + easeAmount*(movingShapes[i].moveToX - movingShapes[i].x);
 		movingShapes[i].y = movingShapes[i].y + easeAmount*(movingShapes[i].moveToY - movingShapes[i].y);
-		if((Math.abs(movingShapes[i].x - movingShapes[i].moveToX) < 0.1) && (Math.abs(movingShapes[i].y - movingShapes[i].moveToY) < 0.1)){
+		if((Math.abs(movingShapes[i].x - movingShapes[i].moveToX) < 1) && (Math.abs(movingShapes[i].y - movingShapes[i].moveToY) < 1)){
 			stopingShapes.push(i);
 			movingShapes[i].x = movingShapes[i].moveToX;
 			movingShapes[i].y = movingShapes[i].moveToY;
