@@ -23,7 +23,7 @@ var health = 100;
 var damage = 15;
 var isDamaged = false;
 var score = 0;
-var speedUpRatio = 0.96;
+var speedUpRatio = 0.90;
 
 function init(){
 	theCanvas.addEventListener('mousedown', mouseDownListener, false);
@@ -408,12 +408,12 @@ function clearShapes(){
 	fillCountBoard();
 	var cleanCount = cleanBoard();
 	if(cleanCount==0){
-		speedUpRatio = (speedUpRatio+1)/2;
 		isDamaged = true;
 		health -= damage;
 		damage*=1.1;
 	}else{
 		countDown *= speedUpRatio;
+		speedUpRatio = (speedUpRatio+1)/2;
 		health += cleanCount;
 		score += cleanCount;
 		scoreLabel.innerHTML = score;
