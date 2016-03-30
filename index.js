@@ -35,6 +35,7 @@ function init(){
 	damage = 15;
 	health = 100;
 	score = 0;
+	speedUpRatio = 0.90;
 	scoreLabel.innerHTML = score;
 	theCanvas.style.display = "block";
 	restartButton.style.display = "none";
@@ -407,6 +408,7 @@ function clearShapes(){
 	fillCountBoard();
 	var cleanCount = cleanBoard();
 	if(cleanCount==0){
+		speedUpRatio = (speedUpRatio+1)/2;
 		isDamaged = true;
 		health -= damage;
 		damage*=1.1;
