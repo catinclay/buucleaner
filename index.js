@@ -26,7 +26,7 @@ var speedUpRatio = 0.96;
 
 function init(){
 	theCanvas.addEventListener('mousedown', mouseDownListener, false);
-	theCanvas.addEventListener('touchstart', mouseDownListener, false);
+	theCanvas.addEventListener('touchstart', touchDownListener, false);
 	hasMousedoneHandler = true;
 	makeShapes();
 	drawShapes();
@@ -106,7 +106,10 @@ function mouseDownListener(evt){
 	theCanvas.removeEventListener('touchstart', mouseDownListener, false);
 
 	hasMousedoneHandler = false;
+}
 
+function touchDownListener(evt){
+	alert("touch!!");
 }
 
 function mouseMoveListener(evt){
