@@ -18,12 +18,13 @@ var scoreCount = 4;
 var movingShapes = [];
 var hasMousedoneHandler;
 var countDown = 3000;
-var clock = -350;
+var clockOrigin = -350;
+var clock = clockOrigin;
 var health = 100;
 var damage = 15;
 var isDamaged = false;
 var score = 0;
-var speedUpRatio = 0.96;
+var speedUpRatio = 0.98;
 
 function init(){
 	theCanvas.addEventListener('mousedown', mouseDownListener, false);
@@ -37,7 +38,7 @@ function init(){
 	score = 0;
 	speedUpRatio = 0.90;
 	countDown = 3000;
-	clock = -300;
+	clock = -350;
 	scoreLabel.innerHTML = score;
 	theCanvas.style.display = "block";
 	restartButton.style.display = "none";
