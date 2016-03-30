@@ -26,6 +26,7 @@ var speedUpRatio = 0.96;
 
 function init(){
 	theCanvas.addEventListener('mousedown', mouseDownListener, false);
+	theCanvas.addEventListener('touchstart', mouseDownListener, false);
 	hasMousedoneHandler = true;
 	makeShapes();
 	drawShapes();
@@ -98,8 +99,12 @@ function mouseDownListener(evt){
 	console.log(grabIndexI+", "+grabIndexJ);
 	
 	window.addEventListener('mousemove', mouseMoveListener, false);
+	window.addEventListener('touchmove', mouseMoveListener, false);
 	window.addEventListener('mouseup', mouseUpListener, false);
+	window.addEventListener('touchend', mouseUpListener, false);
 	theCanvas.removeEventListener('mousedown', mouseDownListener, false);
+	theCanvas.removeEventListener('touchstart', mouseDownListener, false);
+
 	hasMousedoneHandler = false;
 
 }
@@ -133,8 +138,9 @@ function mouseMoveListener(evt){
 					// destinationIndexJPos = shapes[destinationIndexI][destinationIndexJ].y;
 					console.log(destinationIndexI+", "+destinationIndexJ);
 					window.removeEventListener('mousemove', mouseMoveListener, false);
+					window.removeEventListener('touchmove', mouseMoveListener, false);
 					window.removeEventListener('mouseup', mouseUpListener, false);
-					
+					window.removeEventListener('touchend', mouseUpListener, false);
 
 				}
 			}
@@ -153,8 +159,11 @@ function mouseUpListener(evt){
 	// console.log(mouseX);
 	// console.log(mouseY);	
 	window.removeEventListener('mousemove', mouseMoveListener, false);
+	window.removeEventListener('touchmove', mouseMoveListener, false);
+	window.removeEventListener('mouseup', mouseUpListener, false);
 	window.removeEventListener('mouseup', mouseUpListener, false);
 	theCanvas.addEventListener('mousedown', mouseDownListener, false);
+	theCanvas.addEventListener('touchstart', mouseDownListener, false);
 }
 
 function fillCountBoard(){
