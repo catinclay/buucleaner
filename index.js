@@ -21,7 +21,7 @@ var clock = 0;
 var health = 100;
 var damage = 15;
 var isDamaged = false;
-var score=0;
+var score = 0;
 var speedUpRatio = 0.96;
 
 function init(){
@@ -73,9 +73,9 @@ function drawScreen() {
 	}
 	context.fillRect(0,0,theCanvas.width,theCanvas.height);
 	context.fillStyle = "#FF0000";
-	context.fillRect(0,160,theCanvas.width*health/100,10);
+	context.fillRect(0,480,theCanvas.width*health/100,30);
 	context.fillStyle = "#0000FF";
-	context.fillRect(0,180,theCanvas.width*clock/countDown,10);
+	context.fillRect(0,540,theCanvas.width*clock/countDown,30);
 
 	drawShapes();		
 }
@@ -378,6 +378,7 @@ function onTimerTick(){
 	if(movingShapes.length == 0 && !hasMousedoneHandler){
 		hasMousedoneHandler = true;
 		theCanvas.addEventListener('mousedown', mouseDownListener, false);
+		theCanvas.addEventListener('touchstart', touchDownListener, false);
 	}
 	clock += 30;
 	if(clock >= countDown){
